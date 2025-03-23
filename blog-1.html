@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ewan's Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #2d46b9;
+            --secondary: #f85f73;
+            --dark: #1e1e2c;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/012/256/061/original/animated-web-developer-character-half-body-flat-person-4k-footage-with-alpha-channel-software-engineering-color-cartoon-style-illustration-for-motion-graphic-design-and-animation-video.jpg');
+            /* Add your image URL here */
+            background-size: cover;
+            /* Ensures the image covers the entire hero section */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adds a dark overlay for better text visibility */
+            background-blend-mode: multiply;
+            /* Blends the background color with the image */
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            color: white;
+            /* Ensures text is visible on the dark background */
+        }
+
+        .hero-title {
+            font-size: 60px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.6s;
+            position: relative;
+            /* Required for pseudo-elements */
+            overflow: hidden;
+            /* Ensures pseudo-elements don't overflow */
+            z-index: 1;
+            /* Ensures text stays above pseudo-elements */
+            border: none;
+        }
+
+        .cta-button:before,
+        .cta-button:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            background: #f85f73;
+            z-index: -1;
+            transition: all 0.35s;
+        }
+
+        .cta-button:before {
+            opacity: 0.5;
+        }
+
+        .cta-button:after {
+            transition-delay: 0.2s;
+        }
+
+        .cta-button:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            /* Maintain the existing hover transform */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Maintain the existing hover shadow */
+        }
+
+        .cta-button:hover:before,
+        .cta-button:hover:after {
+            top: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .skill:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .about-image img {
+            width: 100%;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .portfolio-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 70, 185, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Intersection Observer Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .blog-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .blog-link:hover {
+            color: var(--secondary);
+        }
+
+        .underline {
+            background-image: -webkit-linear-gradient(92deg, #87CEEB, #000080);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hue 10s infinite linear;
+        }
+
+        @keyframes hue {
+            from {
+                -webkit-filter: hue-rotate(0deg);
+            }
+
+            to {
+                -webkit-filter: hue-rotate(-360deg);
+            }
+        }
+
+        #scroll {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            /* Use your primary color */
+            color: white;
+            padding: 15px 18px;
+            /* Slightly larger padding to accommodate the bigger arrow */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            overflow: hidden;
+            /* Ensures the ripple effect doesn't overflow */
+            text-align: center;
+            /* Center the arrow */
+            font-size: 24px;
+            /* Increased font size for a bigger arrow */
+            line-height: 1;
+            /* Ensure the arrow is centered vertically */
+        }
+
+        #scroll:hover {
+            background-color: #f85f73;
+            /* Use your secondary color */
+            opacity: 1;
+            filter: "alpha(opacity=100)";
+            -ms-filter: "alpha(opacity=100)";
+        }
+
+        /* Ripple effect */
+        #scroll:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            /* Ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:before {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        /* Optional: Add a second ripple for a more dynamic effect */
+        #scroll:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            /* Second ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease 0.2s, height 0.5s ease 0.2s, opacity 0.5s ease 0.2s;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:after {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            border: 3px solid var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        /* Firefox Scrollbar */
+        html {
+            scrollbar-color: var(--primary) var(--light);
+            scrollbar-width: thin;
+        }
+
+        /* Article Container */
+        .article {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Article Header */
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        .article-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .article-subheading {
+            font-size: 20px;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Article Content */
+        .article-content {
+            font-size: 18px;
+            color: #444;
+        }
+
+        /* Drop Cap */
+        .first-paragraph {
+            position: relative;
+        }
+
+        .drop-cap {
+            font-size: 72px;
+            font-weight: bold;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            color: #222;
+        }
+
+        /* Paragraph Spacing */
+        .article-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            font-style: italic;
+            color: #555;
+        }
+
+        .references-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .references-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .references-list li:hover {
+            background-color: #e0e0e0;
+            transform: translateX(10px);
+        }
+
+        .references-list a {
+            text-decoration: none;
+            color: #2d46b9;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .references-list a:hover {
+            color: #f85f73;
+        }
+
+
+
+
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-image {
+                width: 400px;
+            }
+
+            .about-content {
+                flex-direction: column-reverse;
+            }
+
+            .about-image {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-image {
+                opacity: 0.2;
+                width: 100%;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .article-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .subsection-title {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll" title="Scroll to Top">↑</div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Ewan Blake</a>
+            <nav class="nav-links">
+                <a href="/html/index.html#home">Home</a>
+                <a href="/html/index.html#about">About</a>
+                <a href="/html/index.html#portfolio">Work</a>
+                <a href="/html/index.html#blog">Blog</a>
+                <a href="/html/index.html#contact">Contact</a>
+            </nav>
+
+
+        </div>
+
+    </header>
+
+    <article class="article">
+        <!-- Changed <header> to <div> -->
+        <div class="article-header">
+            <h1 class="article-title">PROJECT MANAGEMENT</h1>
+            <p class="article-subheading">PRINCE2 and Agile Integration in Software Development: An Exploration of
+                Opportunities and Challenges.</p>
+            <p class="article-meta">By Ewan Blake · DEC 8, 2023</p>
+        </div>
+        <div class="article-content">
+            <!-- Introduction -->
+            <section class="article-section">
+                <h2 class="section-title">Introduction</h2>
+                <p class="first-paragraph"><span class="drop-cap">P</span>RINCE2 and Agile are two methodologies that
+                    inherently focus on two different elements of project management; some could even say they contrast
+                    each other in certain elements, but both share characteristics that allow them to work effectively
+                    together. “Important to highlight, that some of the PRINCE2 principles are ‘very much agile’, namely
+                    continued business justification, learn from experience, focus on products, manage by stages, and
+                    manage by exceptions.” (Lloyd & Macrae, 2020). Where PRINCE2 caters to creating and managing a
+                    project in a controlled environment, Agile prefers a more fast-paced and adaptive approach, never
+                    set to one specific path. This difference allows for the opportunity of challenges and opportunities
+                    to exist, and it is important to understand where these respective elements lie, and how best to
+                    utilise them. Ensuring the process of using two systems integrated effectively first calls for an
+                    understanding of the systems separately. Understanding the principles set out by PRINCE2 and Agile
+                    allows the project manager (PM) to make executive decisions based on their understanding of how the
+                    frameworks should be used. Furthermore, this paper aims to highlight the need and possible demand
+                    for integrated system project frameworks such as this, challenges and opportunities of using these
+                    two systems together, before delving into scenarios where these systems have been used effectively,
+                    before finally wrapping up the ideas in a brief conclusion.</p>
+            </section>
+
+            <!-- The Need For Integration -->
+            <section class="article-section">
+                <h2 class="section-title">The Need For Integration</h2>
+                <p>“Both methods have their strengths and added value but also bring their own culture and conditions”
+                    (J. Kusters, R., van de Leur, Y., G. M. M. Rutten, W., & J.M. Trienekens, J., 2017). It is important
+                    to understand that some of the significant challenges PMs face when using these two systems are most
+                    notably the contrast in the demand for a well-documented and structured system. Where PRINCE2 does
+                    not allow for significant change along the development of the project, Agile leans towards customer
+                    feedback and interactivity. According to Marcin Dąbrowski (2023), the budget of an Agile-pure
+                    project can be fixed, at the cost of making the scope flexible in growth, meaning that either the
+                    demands are lowered or raised. In light of PRINCE2, which asks for a fixed scope, this can be a
+                    challenge. However, due to the flexibility of both systems, a study carried out shows that despite
+                    the issues that arise using these two systems together, a thorough understanding of the individual
+                    project management methods “allows for optimum performance of product development teams within a
+                    controlled project environment” (Cppd, R., Mba, M., & Kearns, M. , 2008).</p>
+            </section>
+
+            <!-- Opportunities of Integration -->
+            <section class="article-section">
+                <h2 class="section-title">Opportunities of Integration</h2>
+                <h3 class="subsection-title">Handling Risk</h3>
+                <p>A study carried out by Tomanek and Juricek (2015) acknowledges the potential for opportunities to
+                    arise from the integration of these two systems. <em>“Enrichment of Scrum with selected practices
+                        from the heavy-weight project management methodology PRINCE2 promises better results in
+                        delivering software products, especially in global development projects.”</em> (Tomanek and
+                    Juricek, 2015). The above addresses the possible synergy created by using these two project
+                    management methods, whilst also emphasizing the importance of leveraging elements from both systems
+                    to create one whole system. In this case, taking the known flexibility of Agile, and the structured
+                    approach of PRINCE2, combining them to not only improve the overall quality of the project delivery
+                    but focus also on improving the process of risk management by incorporating elements specifically
+                    from PRINCE2.</p>
+                <p>Another study carried out by Mousaei and Javdani (2018) only further strengthens this element being a
+                    potential opportunity. They go on to highlight potential weaknesses within the Agile(Scrum)
+                    methodology that could further increase the risk of project failures, and by extension how
+                    integrating with PRINCE2 and taking advantage of PRINCE2’s systematic approach to project management
+                    could help to mitigate or even nullify weaknesses created by Scrum.</p>
+                <p>In essence, the two studies collated above help to show that if time is taken for thoughtful
+                    discussion and understanding of how the two systems can be effectively integrated, the principles of
+                    both systems, though often contrasted, can complement each other in ways that allow for weaknesses
+                    often seen in the singular methodology used to be fixed.</p>
+
+                <h3 class="subsection-title">Handling Of Stakeholder Support</h3>
+                <p>Firstly, to emphasise the importance of stakeholder management, a study carried out by Dohnalová and
+                    Zimola (2014) addresses the importance of stakeholder management by comparing the importance of it
+                    equally to both project management and the company behind it as a whole. <em>“An enterprise should
+                        exploit the potential collaboration with stakeholders to avail benefits to the enterprise and at
+                        the same time, detect potential threats and prevent them.”</em> (Dohnalová & Zimola, 2014). The
+                    above text again mentions the threat of risk. Still, it uses it as a way to emphasise the importance
+                    of interactive and effective collaboration with the stakeholders and how working with them can
+                    negate potential risks ahead of time.</p>
+                <p>Overall, this study helps to show that stakeholder management should be treated with as much care,
+                    time and focus as it is shown by the overall company producing and running a project. By doing so,
+                    it allows for a significant increase in the project’s success, and the overall feasibility of the
+                    running project, and ensures that the stakeholder’s and project management teams’ goals are aligned
+                    and synergise well.</p>
+                <p>According to a study carried out by Raharjo and Purwandari (2020), they identified the handling of
+                    stakeholder management to be a significant hurdle when executing Agile-only projects. However, they
+                    identified that integrating Agile with PRINCE2 can help to address hurdles faced when applying Agile
+                    purely by itself. By taking advantage of PRINCE2’s structured-focus approach, it can help to
+                    complement Agile’s flexibility, and in the long run, contribute more effectively to ensure
+                    stakeholder management support is properly adhered to. This paper also allows for a better
+                    understanding in theory of how integrating these two methods of project management can address root
+                    concerns found within the Agile system.</p>
+                <p>In conclusion of this opportunity, the two studies surveyed here help to highlight the need for
+                    effective collaboration and exploitation of stakeholder management. By highlighting the possibility
+                    of potential benefits by doing so, proactively ensuring the mitigation of possible risks to the
+                    overall project, it also allows more credit and care to be given to stakeholder management and
+                    emphasises the importance of it to a level similar to that of project management itself.</p>
+            </section>
+
+            <!-- Challenges Of Integration -->
+            <section class="article-section">
+                <h2 class="section-title">Challenges Of Integration</h2>
+                <h3 class="subsection-title">Handling Of Conflicting Project Methodology Principles</h3>
+                <p>Due to the conflicting approaches to project development and the principles that guide these two
+                    methods of project management, when integrating them, there are bound to be issues. A study carried
+                    out by (Sithambaram, J., Nasir, M. H. N. B. M., & Ahmad, R., 2021) helped to address these
+                    conflicting principles and the issues that could be faced when attempting to integrate these two
+                    systems. However, the paper does not specifically mention PRINCE2, but it helps to give an insight
+                    into the challenges faced. One such challenge mentioned within this paper was the organization and
+                    structure of the overall project which was considered the most challenging factor. The act of
+                    balancing the flexible qualities of Agile and the stiff structural processes of PRINCE2 can make it
+                    difficult to try to balance the two, ensuring that no one methodology is favoured over another, or
+                    in an extreme scenario, is completely disregarded for the more convenient methodology.</p>
+                <p><em>“Systems and procedures were unaligned, sometimes to retain the plan-driven linear approach of
+                        traditional PMMs, particularly a Waterfall PMM; while, sometimes the misalignment seemed
+                        arbitrary, especially for procedures.”</em> (Wells, H.m Dalcher, D., & Smyth, H. , 2015). The
+                    statement above helps to highlight the desire to stay in a more comfortable environment using a more
+                    project-controlled environment like Waterfall (or PRINCE2). The statement also aids in highlighting
+                    a further struggle with handling principle conflicts. It is reasonable to assume that due to the
+                    integration of PRINCE2 and Agile requiring team members to be willing to adapt to a new management
+                    process and the shift in cultural aspects, the careful selection of team members for the project is
+                    considered highly. If selected members happen to have a strong preference for either Agile or
+                    PRINCE2, it could create unneeded resistance within the ongoing project.</p>
+                <p>In conclusion of this challenge, the conflicting identity and approach of integrating these two
+                    systems can introduce potentially alarming challenges. To traverse through said challenges, it is
+                    imperative that a deep understanding of both individual methodologies, including their strengths and
+                    weaknesses is had. Through this deep understanding, it is possible to integrate these two systems to
+                    create a project environment that takes full advantage of both systems’ biggest strengths when
+                    integrated.</p>
+
+                <h3 class="subsection-title">Handling Of Conflicting Mindsets</h3>
+                <p>A study carried out by Poniszewska-Marańda and Tyran (2022) consisted of the integration of PRINCE2
+                    and Scrum (Agile) and while it presented a lot of positive factors, a potential challenge was able
+                    to be taken from this. The report suggests the creation of a traditional “contract”, which in turn
+                    might create a clash with the project manager potentially having the role of negotiator between
+                    customer and supplier mirrored with Agile’s approach.</p>
+                <p>Furthermore, the text goes on to emphasise further that the role of the project manager in an
+                    Agile-led project does not lead the project team but instead helps to support and facilitate their
+                    needs consistently throughout the project. This is seen as a conflicting contrast compared to how a
+                    project manager operates in a PRINCE2 project, where they are usually taking on a more commanding
+                    role.</p>
+                <p>In conclusion of this specific challenge, the integration of PRINCE2 and Agile does present a
+                    positive approach when using these two methodologies together. However, it helps to highlight
+                    elements of these project management structures that would require a deep understanding to either
+                    properly blend two project management roles or create a new one based on the understanding of the
+                    two systems’ blended principles. Furthermore, effectively handling conflicting mindsets requires a
+                    well-thought-out plan. It is important to emphasise communication, implement thorough training of
+                    these two systems integrated, and maintain a shift in culture if it is required; potentially by
+                    hiring new staff that fit the criteria and requirements of this integrated system.</p>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="article-section">
+                <h2 class="section-title">Conclusion</h2>
+                <p>In conclusion, the integration of Agile and PRINCE2 presents several opportunities and challenges
+                    within the software development sector. Due to the conflicting principles of Agile demanding a more
+                    flexible, fast-paced and collaborative approach, whilst PRINCE2 demands a more structured and
+                    thoroughly documented approach, requires exploration of how these two systems can be integrated for
+                    it to be seen as a type of successful project management.</p>
+                <p>Potential opportunities can be exploited by the use of integrating these two systems. Studies that
+                    have been covered in this report suggest the potential of integrating these two systems to allow for
+                    an increase in the end-quality of the project, an increase in the management of risk and being able
+                    to spot risks earlier on before they become a significant threat. Finally, the integration of these
+                    two systems allows for each to complement the other in terms of mitigating their weaknesses,
+                    allowing for an overall improvement in the effectiveness of these two integrated systems.</p>
+                <p>One of the significant opportunities that arose from the scenario of successful project management
+                    integration was an improvement in stakeholder management. Ensuring engaging and concise interaction
+                    and communication with stakeholders allows for project goals to be properly understood by all
+                    parties and helps reduce any potential risks that could come later down the line by
+                    misunderstandings.</p>
+                <p>However, there are potential challenges that crop up when integrating Agile and PRINCE2; specifically
+                    when attempting to handle the conflict in each system’s principles and the general cultural shift
+                    that comes when integrating two contrasting systems. Trying to balance the structured and
+                    documentation-heavy approach of PRINCE2 with the flexible and fast-paced approach of Agile generally
+                    creates challenges within the organization attempting to use it, as well as structural issues with
+                    the project itself and team hierarchy should be carefully put together. The reluctance of team
+                    members due to their deep-routed favouritism to abide by the integrated principles of the two
+                    systems emphasizes the importance of team members who are open to change, and adaptation and have a
+                    deep understanding of how the two systems are integrated in order to properly ensure they are
+                    following what is set out.</p>
+                <p>Overall, the integration of PRINCE2 and Agile in the context of software development is not a project
+                    management type that would easily fit all types of projects. Any organization with an interest in
+                    using these two systems together require a deep understanding of the two integrated systems in order
+                    to specifically mould it to their organizations unique needs. For example, the size of the project
+                    and the scope itself, the culture and mindset of the organization, and the already gained expertise
+                    of the members within the organization; what they are good at, what they struggle with. With the
+                    added aid of thoughtful thinking and experience in managing projects, a clear and concise
+                    exploration of the potential opportunities and challenges, specifically the significant ones that
+                    can be exploited and mitigated respectively, can help to steer the path that could end up being a
+                    successful, flexible and highly adaptable software development project.</p>
+            </section>
+
+            <section class="article-section">
+                <h2 class="section-title">References</h2>
+                <ul class="references-list">
+                    <li><a href="https://www.inspiringprojects.com.au/docs/integrating-prince2-and-scrum.pdf"
+                            target="_blank">Cppd, R., Mba, M., & Kearns, M. (2008). Integrating PRINCE2 and Scrum for
+                            successful new product development.</a></li>
+                    <li><a href="https://doi.org/10.1016/j.sbspro.2013.12.933" target="_blank">Dohnalová, Z., & Zimola,
+                            B. (2014). Corporate Stakeholder Management. Procedia – Social and Behavioral Sciences, 110,
+                            879-886.</a></li>
+                    <li><a href="https://doi.org/10.5220/0006292502710278" target="_blank">J. Kusters, R., van de Leur,
+                            Y., G. M. M. Rutten, W., & J. M. Trienekens, J. (2017). When Agile Meets Waterfall –
+                            Investigating Risks and Problems on the Interface between Agile and Traditional Software
+                            Development in a Hybrid Development Organization. Proceedings of the 19th International
+                            Conference on Enterprise Information Systems, 2.</a></li>
+                    <li><a href="https://is.muni.cz/th/u8ju8/Thesis_Demianchuk.pdf" target="_blank">Lloyd, T., & Macrae,
+                            C. (2020). Masaryk University Faculty of Economics and Administration Field of Study:
+                            Business Management IMPLEMENTING THE PRINCE2 PROJECT MANAGEMENT METHOD IN AN EXISTING
+                            PROJECT ENVIRONMENT.</a></li>
+                    <li><a href="https://doi.org/10.1007/978-1-4842-9243-3_13" target="_blank">Marcin Dąbrowski. (2023).
+                            Approaches to Project Management – Academic Discussions vs. Real Life. Managing IT Projects,
+                            113-121.</a></li>
+                    <li><a href="https://thesai.org/Downloads/Volume9No4/Paper_61-A_New_Project_Risk_Management_Model.pdf"
+                            target="_blank">Mousaei, M., & Javdani, T. (2018). A New Project Risk Management Model based
+                            on Scrum Framework and Prince2 Methodology. IJACSA) International Journal of Advanced
+                            Computer Science and Applications, 9(4).</a></li>
+                    <li><a href="https://doi.org/10.5220/0011386200003280" target="_blank">Poniszewska-Marańda, A., &
+                            Tyran, M. (2022). Hybrid Approach to Business Software Development in Terms of Current Needs
+                            and Requirements. Proceedings of the 19th International Conference on Smart Business
+                            Technologies.</a></li>
+                    <li><a href="https://doi.org/10.1145/3378936.3378949" target="_blank">Raharjo, T., & Purwandari, B.
+                            (2020). Agile Project Management Challenges and Mapping Solutions. Proceedings of the 3rd
+                            International Conference on Software Engineering and Information Management.</a></li>
+                    <li><a href="https://doi.org/10.1016/j.ijproman.2021.03.002" target="_blank">Sithambaram, J., Nasir,
+                            M. H. N. B. M., & Ahmad, R. (2021). Issues and challenges impacting the successful
+                            management of agile-hybrid projects: A grounded theory approach. International Journal of
+                            Project Management, 39(5).</a></li>
+                    <li><a href="https://doi.org/10.5121/ijsea.2015.6107" target="_blank">Tomanek, M., & Juricek, J.
+                            (2015). Project Risk Management Model Based on PRINCE2 and Scrum Frameworks. International
+                            Journal of Software Engineering & Applications, 6(1), 81–88.</a></li>
+                    <li><a href="https://doi.org/10.1109/HICSS.2015.532" target="_blank">Wells, H., Dalcher, D., &
+                            Smyth, H. (2015, January 1). The Adoption of Agile Management Practices in a Traditional
+                            Project Environment: An IT/IS Case Study. IEEE Xplore.</a></li>
+                </ul>
+            </section>
+        </div>
+    </article>
+
+
+    <script>
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Form animation
+        const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('active');
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.value === '') {
+                    input.parentElement.classList.remove('active');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#scroll').fadeIn();
+                } else {
+                    $('#scroll').fadeOut();
+                }
+            });
+            $('#scroll').click(function () {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            // Optionally, you can add some validation or other logic here before submitting the form.
+
+            // Clear the form fields after submission
+            setTimeout(function () {
+                document.getElementById('contactForm').reset();
+            }, 1000); // You can adjust the delay if needed
+        });
+
+        // Function to add active class to the navigation links
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('section'); // Get all sections
+            const navLinks = document.querySelectorAll('.nav-links a'); // Get all navigation links
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 100; // Adjust for header height
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    // Remove active class from all links
+                    navLinks.forEach((link) => {
+                        link.classList.remove('active');
+                    });
+
+                    // Add active class to the corresponding link
+                    document.querySelector(`.nav-links a[href="#${sectionId}"]`).classList.add('active');
+                }
+            });
+        }
+
+        // Call the function on scroll
+        window.addEventListener('scroll', setActiveNavLink);
+
+        // Call the function on page load to set the initial active link
+        setActiveNavLink();
+    </script>
+</body>
+
+</html>

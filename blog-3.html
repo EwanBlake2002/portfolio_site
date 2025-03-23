@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ewan's Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #2d46b9;
+            --secondary: #f85f73;
+            --dark: #1e1e2c;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/012/256/061/original/animated-web-developer-character-half-body-flat-person-4k-footage-with-alpha-channel-software-engineering-color-cartoon-style-illustration-for-motion-graphic-design-and-animation-video.jpg');
+            /* Add your image URL here */
+            background-size: cover;
+            /* Ensures the image covers the entire hero section */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adds a dark overlay for better text visibility */
+            background-blend-mode: multiply;
+            /* Blends the background color with the image */
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            color: white;
+            /* Ensures text is visible on the dark background */
+        }
+
+        .hero-title {
+            font-size: 60px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.6s;
+            position: relative;
+            /* Required for pseudo-elements */
+            overflow: hidden;
+            /* Ensures pseudo-elements don't overflow */
+            z-index: 1;
+            /* Ensures text stays above pseudo-elements */
+            border: none;
+        }
+
+        .cta-button:before,
+        .cta-button:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            background: #f85f73;
+            z-index: -1;
+            transition: all 0.35s;
+        }
+
+        .cta-button:before {
+            opacity: 0.5;
+        }
+
+        .cta-button:after {
+            transition-delay: 0.2s;
+        }
+
+        .cta-button:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            /* Maintain the existing hover transform */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Maintain the existing hover shadow */
+        }
+
+        .cta-button:hover:before,
+        .cta-button:hover:after {
+            top: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .skill:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .about-image img {
+            width: 100%;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .portfolio-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 70, 185, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Intersection Observer Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .blog-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .blog-link:hover {
+            color: var(--secondary);
+        }
+
+        .underline {
+            background-image: -webkit-linear-gradient(92deg, #87CEEB, #000080);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hue 10s infinite linear;
+        }
+
+        @keyframes hue {
+            from {
+                -webkit-filter: hue-rotate(0deg);
+            }
+
+            to {
+                -webkit-filter: hue-rotate(-360deg);
+            }
+        }
+
+        #scroll {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            /* Use your primary color */
+            color: white;
+            padding: 15px 18px;
+            /* Slightly larger padding to accommodate the bigger arrow */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            overflow: hidden;
+            /* Ensures the ripple effect doesn't overflow */
+            text-align: center;
+            /* Center the arrow */
+            font-size: 24px;
+            /* Increased font size for a bigger arrow */
+            line-height: 1;
+            /* Ensure the arrow is centered vertically */
+        }
+
+        #scroll:hover {
+            background-color: #f85f73;
+            /* Use your secondary color */
+            opacity: 1;
+            filter: "alpha(opacity=100)";
+            -ms-filter: "alpha(opacity=100)";
+        }
+
+        /* Ripple effect */
+        #scroll:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            /* Ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:before {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        /* Optional: Add a second ripple for a more dynamic effect */
+        #scroll:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            /* Second ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease 0.2s, height 0.5s ease 0.2s, opacity 0.5s ease 0.2s;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:after {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            border: 3px solid var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        /* Firefox Scrollbar */
+        html {
+            scrollbar-color: var(--primary) var(--light);
+            scrollbar-width: thin;
+        }
+
+        /* Article Container */
+        .article {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Article Header */
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        .article-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .article-subheading {
+            font-size: 20px;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Article Content */
+        .article-content {
+            font-size: 18px;
+            color: #444;
+        }
+
+        /* Drop Cap */
+        .first-paragraph {
+            position: relative;
+        }
+
+        .drop-cap {
+            font-size: 72px;
+            font-weight: bold;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            color: #222;
+        }
+
+        /* Paragraph Spacing */
+        .article-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            font-style: italic;
+            color: #555;
+        }
+
+        .references-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .references-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .references-list li:hover {
+            background-color: #e0e0e0;
+            transform: translateX(10px);
+        }
+
+        .references-list a {
+            text-decoration: none;
+            color: #2d46b9;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .references-list a:hover {
+            color: #f85f73;
+        }
+
+        
+
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-image {
+                width: 400px;
+            }
+
+            .about-content {
+                flex-direction: column-reverse;
+            }
+
+            .about-image {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-image {
+                opacity: 0.2;
+                width: 100%;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll" title="Scroll to Top">↑</div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Ewan Blake</a>
+            <nav class="nav-links">
+                <a href="/html/index.html#home">Home</a>
+                <a href="/html/index.html#about">About</a>
+                <a href="/html/index.html#portfolio">Work</a>
+                <a href="/html/index.html#blog">Blog</a>
+                <a href="/html/index.html#contact">Contact</a>
+            </nav>
+
+
+        </div>
+
+    </header>
+
+    <article class="article">
+        <!-- Article Header -->
+        <div class="article-header">
+            <h1 class="article-title">Beyond-the-Screen Design: Site-Specific Installation</h1>
+            <p class="article-subheading">Exploring the integration of virtual reality, object-tracking, and
+                sensor-based interaction in site-specific installations.</p>
+            <p class="article-meta">By Ewan Blake · MAY 2, 2024</p>
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <!-- Introduction -->
+            <section class="article-section">
+                <h2 class="section-title">Introduction</h2>
+                <p class="first-paragraph"><span class="drop-cap">T</span>his report will conceptualise a
+                    beyond-the-screen design using site-specific installation. The report will briefly discuss defining
+                    what site-specific installation is, and how it can enhance the user experience of an
+                    already-developed application. Then, grounded in academic literature, it will delve into the merits
+                    and limitations of site-specific installation, providing examples of where this technology has been
+                    implemented. After that, discussions of user engagement strategies and considerations for the design
+                    will be had, before finally coming to a sound conclusion and a proposed design for how this can be
+                    integrated into the context of the beyond-the-screen design.</p>
+                <p>According to Salgueiro (2023), site-specific installations are designs typically created to have an
+                    intimate connection with the environment, typically physical and one the audience can interact with.
+                    Generally, site-specific installations have been connected with thematically historical content, as
+                    being able to recreate something accurately and physically can provide an effective emotional
+                    experience for newer generations. However, it is hoped that by combining the technologies
+                    site-specific installation can offer and the proposed design beyond the screen, a compelling
+                    narrative that fits the target audience can be created through the technological capabilities of
+                    virtual reality, sensor capabilities, and physical environments to provide an engaging and effective
+                    querying service. The technologies that will be discussed to bring this together include the
+                    following; Virtual reality, object-tracking and sensor-based interaction.</p>
+            </section>
+
+            <!-- Virtual Reality (VR) -->
+            <section class="article-section">
+                <h2 class="section-title">Virtual Reality (VR)</h2>
+                <p>VR is seen as a piece of technology that has transformative versatility, by creating a new medium by
+                    which many elements such as storytelling, entertainment and exploration can be exploited by the use
+                    of this technology (LaValle, 2023). LaValle (2023) emphasizes the experiences on offer by exploiting
+                    these elements by saying the following:</p>
+                <blockquote>
+                    VR is like a waking dream that could take place in a magical cartoon-like world or could transport
+                    us to another part of the Earth or universe.
+                    <footer>LaValle, 2023</footer>
+                </blockquote>
+                <p>Because of the versatility of use in many sectors, the discussion of theoretically implementing this
+                    piece of technology into the education sector is a valid one. LaValle (2023) and a systematic review
+                    carried out by Lampropoulos and Kinshuk (2024) helped to strengthen further the potential of
+                    implementing VR into the education sector, highlighting benefits such as enhanced learning
+                    experiences, personalisation of said experiences, and the increase of engagement and motivation
+                    through the use of collaboration that can help to enhance the overall experience of the user.</p>
+                <p>However, despite the promising potential of the versatile collaboration and learning experience VR
+                    can bring, there are still limitations to what it can do. A journal article written by Fitria (2023)
+                    helped to outline the general limitations that hold back VR from being effectively integrated into
+                    the education sector. Current challenges highlighted include financial barriers; in the sense of
+                    developing and building these technologies, which in turn affects the final price of the product,
+                    which can then lead to accessibility issues amongst schools who may be able to afford it, despite
+                    potentially being able to benefit off of the use of it significantly.</p>
+                <p>To further identify the current journey of VR, comparing the limitations it experiences with the
+                    Gartner Hyper Cycle can be made. According to Gartner (2018), the Gartner Hype Cycle has 5 stages to
+                    document the life cycle of a technology, or in this case, a transitional technology like VR.
+                    Referring back to Fitria (2023), the availability of funds and lack of investment can be linked to
+                    the “innovation trigger” phase, where a generalised lack of investment and funds hinders the
+                    technology from being able to reach its full potential, affecting and all future development of this
+                    technology. The quality of the created technology and integration into the education sector may not
+                    match the predicted expectations of customers, harkening back to lack of investment affecting its
+                    future development, which relates to the “peak of inflated experience”.</p>
+                <p>Regarding site-specific installations, VR offers opportunistic transformative flexibility for
+                    immersive experiences that exploit multiple engaging elements; storytelling, entertainment and
+                    exploration. Despite this, certain limitations such as the cost of the product and the cost of
+                    making the product can hamper the accessibility of the product, and therefore limit the potential
+                    impact VR could have on varying sectors.</p>
+            </section>
+
+            <!-- Object-Tracking (OT) -->
+            <section class="article-section">
+                <h2 class="section-title">Object-Tracking (OT)</h2>
+                <p>The main objective of visual object tracking is that the marked object with coordinate, width and
+                    height in the initial frame, is desired to be tracked in the following frames, that is to say, the
+                    trajectory of the object should be predicted (Zhang, J., Sun, J., Wang, J., Li, Z, & Chen, X.,
+                    2022).</p>
+                <p>The above explains, much like VR, that it is a very flexible technology that can be used across many
+                    different sectors. Examples include surveillance and security; tracking and monitoring specific
+                    individuals in public spaces or tracking intruders through CCTV.</p>
+                <p>In the context of OT combined with VR, it is important to acknowledge the ability to simulate a
+                    first-person-view (FPV), with these combined technologies. VR aims to simulate a real-life
+                    environment in a virtualised state. OT can take that a step further by adding an integral sense of
+                    touch. By aligning objects within the world of VR with real-life objects, it further embraces a
+                    person into the world they are being simulated in. It is important to look at the benefits and
+                    limitations OT can currently bring when being used. A paper by Matteo Dunnhofer, Giovanni Maria
+                    Farinella & Micheloni (2022) analysed the capabilities of OT using the TREK-150 benchmark. TREK-150
+                    is a thoroughly described dataset aiming to benchmark the ongoing progress of visual OT (Matteo
+                    Dunnhofer et al., 2022). Benefits of OT based on this paper include improvement in the referral of
+                    existing objects, localization and efficiency over existing object detection methods.</p>
+                <p>Regarding limitations, a paper from Mirzaei, Nezamabadi-pour, Raoof & Derakhshani (2023) helped to
+                    acknowledge some potential limitations of various methodologies of OT. Due to the context of
+                    combining it with VR, this study will focus primarily on two methods brought up in this specific
+                    paper; track-by-detection and filter-based. Track-by-detection can help to automatically initialise
+                    and manage scenes with a large number of objects simultaneously through the use of detection
+                    algorithms (Mirzaei et al., 2023). This is generally good as it can help simplify the development
+                    process, improve the user's general experience, and allow for more dynamic and responsive virtual
+                    environments, all thanks to the technology being able to run more smoothly and handle more objects.
+                    However, track-by-detection relies heavily on the quality and performance of object detection,
+                    meaning that if the performance and quality are low, this can lead to poor tracking performance
+                    (Mirzaei et al., 2023). If this were to happen, it would significantly reduce the usability and
+                    immersive experience that the VR technology would output to the user, further emphasizing the
+                    importance of an effective object detector algorithm.</p>
+                <p>The filter-based Kalman filter can enhance tracking efficiency through optimally-based estimations
+                    that do not require a ton of computational requirements, meaning that this particular method can be
+                    considered suitable for real-time responsiveness (Mirzaei et al., 2023). However, the filter method
+                    assumes the use of Gaussian distribution, also now more commonly known as normal distribution, and
+                    the method itself is generally only suitable for linear systems (Mirzaei et al., 2023). This could
+                    lead to inaccuracies being present in the FPV or limitations being present, specifically in contexts
+                    where the movement of objects, users, or both are non-linear.</p>
+                <p>The integration of OT with VR in a site-specific installation context has the potential to create a
+                    wholly immersive experience. By leveraging interactivity and personalisation of an experience,
+                    designers can take advantage of the strengths of combining these technologies to create a
+                    potentially compelling installation to engage and inspire users in creative new ways.</p>
+            </section>
+
+            <!-- Sensor-Based Interaction (SBI) -->
+            <section class="article-section">
+                <h2 class="section-title">Sensor-Based Interaction (SBI)</h2>
+                <p>Interactive sensors are another piece of technology related to site-specific installation that is
+                    versatile across many different sectors, ranging back to the early 2000s. A few examples of this
+                    technology being implemented in diverse sectors include; military intelligence gathering (Livingston
+                    & Herbst, 2005) and human-machine interaction (Chen, J. -F., Li, M, -H., & Yeh, Hsin-I, 2013). The
+                    latter of these examples is relevant to the topic of SBI as human-machine interaction involves the
+                    process of integrating sensor technology within a real, physical space to create an immersive,
+                    interactive and reactive environment for users.</p>
+                <p>In a gamified context, the three most important interactive sensors are possibly motion, touch and
+                    gesture recognition sensors. A study carried out by Yang, S., Gao, Z., Hadi Mogavi, R., Hui, P., &
+                    Braud, T. (2023) designed and developed an immersive experience combining the digital capabilities
+                    of VR with the Web. In an educational context, the Tangible Web project deals with physical sensors,
+                    with which motion, touch and gesture respectively align with. Additionally, the theorization of the
+                    Tangible Web is done within the confinements of a biologically scientific example, however, this can
+                    still apply to the rest of the educational sector.</p>
+                <p>A study by Zhu, M., Sun, Z., & Lee, C (2021) relating to emphasises the need for accurate upper-limb
+                    detection in applications like VR and robotics, the former specifically. The paper itself provides
+                    some potential advantages of interactive sensors from the use of the exoskeleton suit. The proposed
+                    sensor they integrated into the suit allowed for multiple degrees of freedom (DOF) motions. This
+                    then allowed for accurate movement tracking in a variety of directions, therefore enhancing the
+                    functionality, effectiveness and immersion of the suit. Furthermore, a research paper carried out by
+                    Zinaty, M., El Ghaoui, E., Zeid Daou, R. A., Hayek, A., & Boercsoek, J (2023) explored combatting
+                    the limitations of mobile games to achieve a more immersive and interactive experience exploiting
+                    new transitional technologies. The research paper concludes that the addition of force and linear
+                    sensors, of which a flex sensor is attached to the game controller, allows for a more immersive and
+                    interactive gaming experience. The paper then goes on to mention the feasibility of expanding this
+                    experiment into the grounds of VR.</p>
+                <p>The integration of interactive sensors in site-specific installations can create immersive and
+                    interactive experiences, additionally across many sectors, but mainly education. The studies covered
+                    and discussed in this section highlighted the importance of specific sensors, motion, touch, and
+                    gesture, in enhancing human-machine interaction, and potentially applications that make use of VR.
+                    The adoption of interactive sensors into a site-specific installation can open up a wide range of
+                    possibilities for being able to create dynamic, responsive, and engaging experiences that mould
+                    together the physical and virtual realm to create a truly immersive experience.</p>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="article-section">
+                <h2 class="section-title">Conclusion</h2>
+                <h3 class="subsection-title">Proposed Design</h3>
+                <p>The proposed design for the site-specific installation is encapsulated inside of a large circular
+                    room. There will be around 6 different stations set out at equal space and footing across the room,
+                    in a circular shape outline. Users will be immersed with Meta Quest 2 headsets, due to affordability
+                    and therefore accessibility and will additionally be equipped with exoskeleton suits that will
+                    capture motion and replicate it within the VR world. All users will be connected to create a
+                    collaborative and social experience. Each stage will be met with an up-right rectangular wooden
+                    platform; which will exist on the physical and virtual realm, having been scanned in. The platforms
+                    themselves will be flat, however, they will contain maze-like routes that also exist within the
+                    physical and virtual realm.</p>
+                <p>Each stage will be linear, with the requirement of the previous task to be completed before a user
+                    can access and attempt the next one. Each time the user completes a stage, they will be met with a
+                    reactive cutscene. It is considered reactive in the context that it is directly linked to the user's
+                    headset, so when any avatars talk or move, they will look at and move around the user respectively.
+                </p>
+
+                <h3 class="subsection-title">Conclusion Of Work</h3>
+                <p>The research conducted on VR, OT, and SBI in the merged context of a site-specific installation has
+                    helped to provide key understandings of where the benefits and limitations of these technologies may
+                    lie, and by extension how they might benefit, or negatively impact a site-specific installation. All
+                    of the research undertaken was done with a focus on the education sector, attempting to understand
+                    the current state of technology within that sector, how accessible it is, and how it might be used
+                    to benefit it in the long run.</p>
+                <p>VR states itself as an immersive and transformative tool, versatile in many sectors, specifically
+                    education. Studies by LaValle (2023), Lampropoulos, and Kinshuck (2024) helped to highlight its
+                    potential within the sector by possibly enhancing the experiences of learning, adding an element of
+                    personalisation to education, and increasing engagement in learning. However, it was noted by Fitria
+                    (2023) that financial and technological integration barriers remained significant challenges.</p>
+                <p>Integration of OT and SBI technologies respectively enables for the enhancement of the immersive
+                    experience provided by an educational site-specific installation. OT methods such as
+                    track-by-detection, allow for accurate object scanning into a virtual environment. SBI allows for
+                    motion, touch and gesture sensor recognition to be integrated, which was demonstrated in studies by
+                    Yang et al. (2023) and Zhu et al. (2021). By understanding how these technologies can integrate into
+                    a site-specific installation context, it was decided that by implementing Meta Quest 2 VR headsets
+                    with exoskeleton suits to allow for immersion and motion capture respectively, users would be able
+                    to engage dynamically and interactively, allowing for social collaboration with fellow users.</p>
+                <p>In conclusion, the research undertaken details the potential of exploring and using in tandem VR, OT,
+                    and SBI to help revolutionize education through immersive and interactive storytelling experiences.
+                    By addressing the issues and strengths of each technology identified from the academic research
+                    undertaken, a proposed design was created, with the hopes of creating a compelling, and immersive
+                    merged environment.</p>
+            </section>
+
+            <!-- References Section -->
+            <section class="article-section">
+                <h2 class="section-title">References</h2>
+                <ul class="references-list">
+                    <li><a href="https://doi.org/10.6180/jase.2013.16.4.09" target="_blank">Chen, J.-F., Li, M.-H., &
+                            Yeh, Hsin-I. (2013). Design and Implementation of an Interactive System Based on Wireless
+                            Sensor Technologies. Journal of Applied Science and Engineering, 16(4), 415–424.</a></li>
+                    <li><a href="https://doi.org/10.29040/ijcis.v4i1.102" target="_blank">Fitria, T. N. (2023).
+                            Augmented Reality (AR) and Virtual Reality (VR) Technology in Education: Media of Teaching
+                            and Learning: A Review. International Journal of Computer and Information System (IJCIS),
+                            4(1), 14–25.</a></li>
+                    <li><a href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
+                            target="_blank">Gartner. (2018). Hype Cycle Research Methodology. Gartner.</a></li>
+                    <li><a href="https://doi.org/10.1007/s11423-024-10351-3" target="_blank">Lampropoulos, G., &
+                            Kinshuk. (2024). Virtual reality and gamification in education: a systematic review.
+                            Educational Technology Research and Development.</a></li>
+                    <li><a href="https://books.google.co.uk/books?hl=en&lr=&id=ft_LEAAAQBAJ&oi=fnd&pg=PR11&dq=What+is+virtual+reality&ots=oxJ9Lqm_8y&sig=AzekaRIRzk6zHWnFkZjEwZb6FXI#v=onepage&q=What%20is%20virtual%20reality&f=false"
+                            target="_blank">LaValle, S. M. (2023). Virtual Reality. In Google Books. Cambridge
+                            University Press.</a></li>
+                    <li><a href="https://doi.org/10.1007/s11263-022-01694-6" target="_blank">Matteo Dunnhofer, Furnari,
+                            A., Giovanni Maria Farinella, & Micheloni, C. (2022). Visual Object Tracking in First Person
+                            Vision. International Journal of Computer Vision, 131(1), 259–283.</a></li>
+                    <li><a href="https://doi.org/10.3390/s23156887" target="_blank">Mirzaei, B., Nezamabadi-pour, H.,
+                            Raoof, A., & Derakhshani, R. (2023). Small Object Detection and Tracking: A Comprehensive
+                            Review. Sensors, 23(15), 6887.</a></li>
+                    <li><a href="https://10.4000/midas.3761" target="_blank">Salgueiro, R. (2023). Tatja Scholte – The
+                            Perpetuation of Site-Specific Installation Artworks in Museums: Staging Contemporary Art.
+                            Midas: Museus E Estudos Interdiscplinares, 16.</a></li>
+                    <li><a href="https://doi.org/10.1145/3543507.3587432" target="_blank">Yang, S., Gao, Z., Hadi
+                            Mogavi, R., Hui, P., & Braud, T. (2023). Tangible Web: An Interactive Immersion Virtual
+                            Reality Creativity System that Travels Across Reality. Proceedings of the ACM Web Conference
+                            2023.</a></li>
+
+                    <li><a href="https://doi.org/10.1016/j.compeleceng.2022.107730" target="_blank">Zhang, J., Sun, J.,
+                            Wang, J., Li, Z., & Chen, X. (2022). An object tracking framework with recapture based on
+                            correlation filters and Siamese networks. Computers & Electrical Engineering, 98,
+                            107730.</a></li>
+                    <li><a href="https://doi.org/10.1109/powermems54003.2021.9658394" target="_blank">Zhu, M., Sun, Z.,
+                            & Lee, C. (2021). Exploration of Multi-dimensional Sensing in Human Machine Interactions.
+                            2021 IEEE 20th International Conference on Micro and Nanotechnology for Power Generation and
+                            Energy Conversion Applications (PowerMEMS).</a></li>
+                    <li><a href="https://doi.org/10.1109/imcet59736.2023.10368237" target="_blank">Zinaty, M., El
+                            Ghaoui, E., Zeid Daou, R. A., Hayek, A., & Boercsoek, J. (2023). Design and Implementation
+                            of an Angry Birds Game Controller Using Flex Sensor and a Potentiometer. 2023 IEEE 4th
+                            International Multidisciplinary Conference on Engineering Technology (IMCET).</a></li>
+
+                </ul>
+            </section>
+
+    
+
+
+            <script>
+                // Scroll animation
+                const fadeElements = document.querySelectorAll('.fade-up');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                fadeElements.forEach(element => {
+                    observer.observe(element);
+                });
+
+                // Smooth scrolling
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        const target = document.querySelector(this.getAttribute(
+                            'href'));
+
+                        if (target) {
+                            window.scrollTo({
+                                top: target.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Header scroll effect
+                window.addEventListener('scroll', () => {
+                    const header = document.querySelector('header');
+                    if (window.scrollY > 50) {
+                        header.style.padding = '10px 0';
+                        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                    } else {
+                        header.style.padding = '20px 0';
+                        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                    }
+                });
+
+                // Form animation
+                const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+
+                formInputs.forEach(input => {
+                    input.addEventListener('focus', () => {
+                        input.parentElement.classList.add('active');
+                    });
+
+                    input.addEventListener('blur', () => {
+                        if (input.value === '') {
+                            input.parentElement.classList.remove('active');
+                        }
+                    });
+                });
+
+                $(document).ready(function () {
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() > 100) {
+                            $('#scroll').fadeIn();
+                        } else {
+                            $('#scroll').fadeOut();
+                        }
+                    });
+                    $('#scroll').click(function () {
+                        $("html, body").animate({
+                            scrollTop: 0
+                        }, 600);
+                        return false;
+                    });
+                });
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ewan's Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/b89a958fe1.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #2d46b9;
+            --secondary: #f85f73;
+            --dark: #1e1e2c;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/012/256/061/original/animated-web-developer-character-half-body-flat-person-4k-footage-with-alpha-channel-software-engineering-color-cartoon-style-illustration-for-motion-graphic-design-and-animation-video.jpg');
+            /* Add your image URL here */
+            background-size: cover;
+            /* Ensures the image covers the entire hero section */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adds a dark overlay for better text visibility */
+            background-blend-mode: multiply;
+            /* Blends the background color with the image */
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            color: white;
+            /* Ensures text is visible on the dark background */
+        }
+
+        .hero-title {
+            font-size: 60px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.6s;
+            position: relative;
+            /* Required for pseudo-elements */
+            overflow: hidden;
+            /* Ensures pseudo-elements don't overflow */
+            z-index: 1;
+            /* Ensures text stays above pseudo-elements */
+            border: none;
+        }
+
+        .cta-button:before,
+        .cta-button:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            background: #f85f73;
+            z-index: -1;
+            transition: all 0.35s;
+        }
+
+        .cta-button:before {
+            opacity: 0.5;
+        }
+
+        .cta-button:after {
+            transition-delay: 0.2s;
+        }
+
+        .cta-button:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            /* Maintain the existing hover transform */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Maintain the existing hover shadow */
+        }
+
+        .cta-button:hover:before,
+        .cta-button:hover:after {
+            top: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .skill:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .about-image img {
+            width: 100%;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .portfolio-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 70, 185, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Intersection Observer Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .blog-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .blog-link:hover {
+            color: var(--secondary);
+        }
+
+        .underline {
+            background-image: -webkit-linear-gradient(92deg, #87CEEB, #000080);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hue 10s infinite linear;
+        }
+
+        @keyframes hue {
+            from {
+                -webkit-filter: hue-rotate(0deg);
+            }
+
+            to {
+                -webkit-filter: hue-rotate(-360deg);
+            }
+        }
+
+        #scroll {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            /* Use your primary color */
+            color: white;
+            padding: 15px 18px;
+            /* Slightly larger padding to accommodate the bigger arrow */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            overflow: hidden;
+            /* Ensures the ripple effect doesn't overflow */
+            text-align: center;
+            /* Center the arrow */
+            font-size: 24px;
+            /* Increased font size for a bigger arrow */
+            line-height: 1;
+            /* Ensure the arrow is centered vertically */
+        }
+
+        #scroll:hover {
+            background-color: #f85f73;
+            /* Use your secondary color */
+            opacity: 1;
+            filter: "alpha(opacity=100)";
+            -ms-filter: "alpha(opacity=100)";
+        }
+
+        /* Ripple effect */
+        #scroll:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            /* Ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:before {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        /* Optional: Add a second ripple for a more dynamic effect */
+        #scroll:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            /* Second ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease 0.2s, height 0.5s ease 0.2s, opacity 0.5s ease 0.2s;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:after {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            border: 3px solid var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        /* Firefox Scrollbar */
+        html {
+            scrollbar-color: var(--primary) var(--light);
+            scrollbar-width: thin;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .project-header {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #2d46b9;
+            color: white;
+            margin-top: 112px;
+        }
+
+        .project-title {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .project-subtitle {
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Project Overview */
+        .project-overview {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .overview-content {
+            flex: 1;
+            text-align: justify;
+        }
+
+
+        /* Key Features */
+        .key-features {
+            margin: 50px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            text-align: left;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icon Wrapper */
+        .icon-wrapper {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2d46b9, #f85f73);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .feature-item:hover .icon-wrapper {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(135deg, #f85f73, #2d46b9);
+        }
+
+        /* Icons */
+        .icon-wrapper i {
+            font-size: 36px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover .icon-wrapper i {
+            transform: scale(1.2);
+        }
+
+        /* Feature Text */
+        .feature-item h3 {
+            font-size: 19px;
+            color: #2d46b9;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Technologies Section */
+        .technologies {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        /* Tech Badges */
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tech-badge {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #2d46b9, #f85f73);
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #f85f73, #2d46b9);
+        }
+
+        .tech-badge:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .tech-badge:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Visuals */
+        .project-visuals {
+            margin: 50px 0;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Project Overview Card */
+        .overview-card {
+            background: linear-gradient(135deg, #2d46b9, #f85f73);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .overview-content {
+            flex: 1;
+        }
+
+        .overview-image {
+            flex: 1;
+        }
+
+        .overview-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Subsection Titles */
+        .subsection-title {
+            font-size: 24px;
+            color: white;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Objectives and Research Questions Lists */
+        .objectives-list,
+        .research-questions {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .objectives-list li,
+        .research-questions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: white;
+        }
+
+        /* Methodology Paragraph */
+        .methodology {
+            margin-top: 20px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Call-to-Action Section */
+        .cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2d46b9, #f85f73);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .cta:hover::before {
+            transform: scale(1);
+        }
+
+        /* Section Title */
+        .cta .section-title {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CTA Subtitle */
+        .cta-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.6s;
+            position: relative;
+            /* Required for pseudo-elements */
+            overflow: hidden;
+            /* Ensures pseudo-elements don't overflow */
+            z-index: 1;
+            /* Ensures text stays above pseudo-elements */
+            border: none;
+        }
+
+        .cta-button:before,
+        .cta-button:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            background: #f85f73;
+            z-index: -1;
+            transition: all 0.35s;
+        }
+
+        .cta-button:before {
+            opacity: 0.5;
+        }
+
+        .cta-button:after {
+            transition-delay: 0.2s;
+        }
+
+        .cta-button:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            /* Maintain the existing hover transform */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Maintain the existing hover shadow */
+        }
+
+        .cta-button:hover:before,
+        .cta-button:hover:after {
+            top: 0;
+        }
+
+        .highlight-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        .objectives-section {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .deliverables-section {
+            border-left: 5px solid #2196F3;
+        }
+
+        .methodologies-section {
+            border-left: 5px solid #FF9800;
+        }
+
+        .subsection-title {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .objectives-list,
+        .deliverables-list,
+        .methodologies-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .objectives-list li,
+        .deliverables-list li,
+        .methodologies-list li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        .objectives-list li strong,
+        .deliverables-list li strong,
+        .methodologies-list li strong {
+            color: #4CAF50;
+        }
+
+        .deliverables-list li strong {
+            color: #2196F3;
+        }
+
+        .methodologies-list li strong {
+            color: #FF9800;
+        }
+
+        .visual-comparison {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .comparison-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .comparison-image {
+            position: relative;
+            flex: 1;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .comparison-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+        }
+
+        .comparison-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 70, 185, 0.6), rgba(248, 95, 115, 0.6));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: 15px;
+        }
+
+        .comparison-image:hover::before {
+            opacity: 1;
+        }
+
+        .comparison-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .comparison-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .comparison-image:hover .comparison-label {
+            opacity: 1;
+        }
+
+        /* Video Showcase Section */
+        .video-showcase {
+            margin: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(45, 70, 185, 0.1), rgba(248, 95, 115, 0.1));
+            padding: 60px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            aspect-ratio: 16 / 9;
+            /* Ensures the iframe maintains a 16:9 aspect ratio */
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .video-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-caption {
+            margin-top: 20px;
+            font-size: 18px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-image {
+                width: 400px;
+            }
+
+            .about-content {
+                flex-direction: column-reverse;
+            }
+
+            .about-image {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-image {
+                opacity: 0.2;
+                width: 100%;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll" title="Scroll to Top">↑</div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Ewan Blake</a>
+            <nav class="nav-links">
+                <a href="/html/index.html#home">Home</a>
+                <a href="/html/index.html#about">About</a>
+                <a href="/html/index.html#portfolio">Work</a>
+                <a href="/html/index.html#blog">Blog</a>
+                <a href="/html/index.html#contact">Contact</a>
+            </nav>
+
+
+        </div>
+
+    </header>
+
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <h1 class="project-title">Organic ME</h1>
+            <p class="project-subtitle">ORGANIC PRODUCTS AND SERVICES WEBSITE</p>
+            <img src="/images/digital-artefact-image.png" alt="Organic ME Hero Image" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section class="project-overview">
+        <div class="container">
+            <div class="overview-card">
+                <div class="overview-content">
+                    <h2 style="color: white;" class="section-title">Project Overview</h2>
+                    <p>Organic ME is a growing company based in the Borders region of Scotland, specializing in organic
+                        food products, household items, homeware, and clothing. They also produce their own organic
+                        honey, which is sold in their café, and organize monthly organic gardening courses. The company
+                        prides itself on selling high-quality, handmade products using locally sourced ingredients.
+                        Currently, Organic ME uses social media platforms like Facebook, Instagram, and YouTube for
+                        promotion but now seeks a dedicated website that is responsive and visually appealing across all
+                        devices. The website aims to attract more customers, increase profits, and promote tourism in
+                        the area.</p>
+
+                    <!-- Objectives -->
+                    <div class="highlight-section objectives-section">
+                        <h3 class="subsection-title">Objectives</h3>
+                        <ul class="objectives-list">
+                            <li><strong>Create an attractive, professional website:</strong> The website must convey
+                                organic, quality, and outdoor themes.</li>
+                            <li><strong>Ensure accessibility and compliance:</strong> The website should be accessible
+                                to all users and comply with W3C standards.</li>
+                            <li><strong>Meet timeline and budget constraints:</strong> The website must be completed
+                                within 3 months and within the original budget of £1500.</li>
+                            <li><strong>Optimize for search engines:</strong> The website must be search engine friendly
+                                to improve visibility.</li>
+                            <li><strong>Design for usability and responsiveness:</strong> The website should be
+                                user-friendly and work on all modern browsers and devices.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Key Features -->
+                    <div class="highlight-section deliverables-section">
+                        <h3 class="subsection-title">Key Features</h3>
+                        <ul class="deliverables-list">
+                            <li><strong>Price lists:</strong> Display prices for café and shop products.</li>
+                            <li><strong>Customer registration:</strong> Allow customers to register for monthly emails
+                                with offers and events.</li>
+                            <li><strong>Special offers:</strong> Advertise monthly special offers.</li>
+                            <li><strong>Product display:</strong> Show photos, prices, and details of organic products.
+                            </li>
+                            <li><strong>Contact information:</strong> Provide address, opening hours, and contact
+                                details.</li>
+                            <li><strong>Photo gallery:</strong> Display images of the organic gardening course and
+                                products.</li>
+                            <li><strong>Videos:</strong> Include videos of organic products for sale.</li>
+                            <li><strong>Google Map:</strong> Advertise the location using an embedded Google Map.</li>
+                            <li><strong>Social media integration:</strong> Link to at least one social media channel.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Methodology -->
+                    <div class="highlight-section methodologies-section">
+                        <h3 class="subsection-title">Methodology</h3>
+                        <ul class="methodologies-list">
+                            <li><strong>User-centered design:</strong> Focus on the needs and preferences of the target
+                                audience.</li>
+                            <li><strong>Responsive web development:</strong> Ensure the website works seamlessly across
+                                all devices.</li>
+                            <li><strong>Search engine optimization (SEO):</strong> Optimize the website for better
+                                search engine visibility.</li>
+                            <li><strong>Usability testing:</strong> Conduct testing to ensure the website is easy to use
+                                and accessible to all users.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="key-features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-tablet"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>The web platform was developed to be easy to use on smaller devices - particularly mobiles and
+                        tablet devices.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-spray-can"></i>
+                    </div>
+                    <h3>Design Overhaul</h3>
+                    <p>Compared to the original design, there has been a significant overhaul to give it a more modern
+                        and sleek look.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-computer-mouse"></i>
+                    </div>
+                    <h3>Front-End Specific</h3>
+                    <p>The web platform is purely front-end built, but there is a future opportunity for a back-end to
+                        be integrated to add further interactivity.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Used -->
+    <section class="technologies">
+        <div class="container">
+            <h2 class="section-title">Technologies Used</h2>
+            <div class="tech-badges">
+                <span class="tech-badge">HTML</span>
+                <span class="tech-badge">CSS</span>
+                <span class="tech-badge">SASS</span>
+                <span class="tech-badge">JavaScript</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section class="video-showcase">
+        <div class="container">
+            <h2 class="section-title">Project Showcase</h2>
+            <div class="video-container">
+                <iframe id="project-video" src="https://www.youtube.com/embed/8hvbcAvkuJs?si=9bk03DGriigu_hVD"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+            </div>
+            <p class="video-caption">Watch the Organic ME project in action.</p>
+        </div>
+    </section>
+
+    <!-- Visual Comparison Section -->
+    <section class="visual-comparison">
+        <div class="container">
+            <h2 class="section-title">Visual Comparison</h2>
+            <div class="comparison-container">
+                <div class="comparison-image">
+                    <img src="/images/index-original.jpeg" alt="Original Design">
+                    <div class="comparison-label">Original Design</div>
+                </div>
+                <div class="comparison-image">
+                    <img src="/images/honours-visual-2.jpeg" alt="Revamped Design">
+                    <div class="comparison-label">Revamped Design</div>
+                </div>
+            </div>
+            <div class="comparison-container">
+                <div class="comparison-image">
+                    <img src="/images/shop-original.jpeg" alt="Original Design">
+                    <div class="comparison-label">Original Design</div>
+                </div>
+                <div class="comparison-image">
+                    <img src="/images/honours-visual-2.jpeg" alt="Revamped Design">
+                    <div class="comparison-label">Revamped Design</div>
+                </div>
+            </div>
+            <div class="comparison-container">
+                <div class="comparison-image">
+                    <img src="/images/contact-original.jpeg" alt="Original Design">
+                    <div class="comparison-label">Original Design</div>
+                </div>
+                <div class="comparison-image">
+                    <img src="/images/honours-visual-2.jpeg" alt="Revamped Design">
+                    <div class="comparison-label">Revamped Design</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Call-to-Action -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="section-title">Interested in Working Together?</h2>
+            <p class="cta-subtitle">Let’s collaborate to create something amazing!</p>
+            <a href="/html/index.html#contact" class="cta-button">Let’s Talk</a>
+        </div>
+    </section>
+
+
+
+
+    <script>
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#scroll').fadeIn();
+                } else {
+                    $('#scroll').fadeOut();
+                }
+            });
+            $('#scroll').click(function () {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
+        });
+
+        const videoIframe = document.getElementById('project-video');
+        const videoOverlay = document.getElementById('video-overlay');
+
+        // Add an event listener to detect when the video starts playing
+        videoIframe.addEventListener('play', () => {
+            videoOverlay.style.opacity = '0'; // Hide the overlay when the video plays
+        });
+
+        // Add an event listener to detect when the video is paused
+        videoIframe.addEventListener('pause', () => {
+            videoOverlay.style.opacity = '1'; // Show the overlay when the video is paused
+        });
+    </script>
+</body>
+
+</html>

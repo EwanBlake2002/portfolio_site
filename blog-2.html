@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ewan's Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #2d46b9;
+            --secondary: #f85f73;
+            --dark: #1e1e2c;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/012/256/061/original/animated-web-developer-character-half-body-flat-person-4k-footage-with-alpha-channel-software-engineering-color-cartoon-style-illustration-for-motion-graphic-design-and-animation-video.jpg');
+            /* Add your image URL here */
+            background-size: cover;
+            /* Ensures the image covers the entire hero section */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adds a dark overlay for better text visibility */
+            background-blend-mode: multiply;
+            /* Blends the background color with the image */
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            color: white;
+            /* Ensures text is visible on the dark background */
+        }
+
+        .hero-title {
+            font-size: 60px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.6s;
+            position: relative;
+            /* Required for pseudo-elements */
+            overflow: hidden;
+            /* Ensures pseudo-elements don't overflow */
+            z-index: 1;
+            /* Ensures text stays above pseudo-elements */
+            border: none;
+        }
+
+        .cta-button:before,
+        .cta-button:after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            background: #f85f73;
+            z-index: -1;
+            transition: all 0.35s;
+        }
+
+        .cta-button:before {
+            opacity: 0.5;
+        }
+
+        .cta-button:after {
+            transition-delay: 0.2s;
+        }
+
+        .cta-button:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            /* Maintain the existing hover transform */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Maintain the existing hover shadow */
+        }
+
+        .cta-button:hover:before,
+        .cta-button:hover:after {
+            top: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .skill:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .about-image img {
+            width: 100%;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .portfolio-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 70, 185, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Intersection Observer Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .blog-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .blog-link:hover {
+            color: var(--secondary);
+        }
+
+        .underline {
+            background-image: -webkit-linear-gradient(92deg, #87CEEB, #000080);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hue 10s infinite linear;
+        }
+
+        @keyframes hue {
+            from {
+                -webkit-filter: hue-rotate(0deg);
+            }
+
+            to {
+                -webkit-filter: hue-rotate(-360deg);
+            }
+        }
+
+        #scroll {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            /* Use your primary color */
+            color: white;
+            padding: 15px 18px;
+            /* Slightly larger padding to accommodate the bigger arrow */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 1000;
+            /* Ensure it's above other elements */
+            overflow: hidden;
+            /* Ensures the ripple effect doesn't overflow */
+            text-align: center;
+            /* Center the arrow */
+            font-size: 24px;
+            /* Increased font size for a bigger arrow */
+            line-height: 1;
+            /* Ensure the arrow is centered vertically */
+        }
+
+        #scroll:hover {
+            background-color: #f85f73;
+            /* Use your secondary color */
+            opacity: 1;
+            filter: "alpha(opacity=100)";
+            -ms-filter: "alpha(opacity=100)";
+        }
+
+        /* Ripple effect */
+        #scroll:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            /* Ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:before {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        /* Optional: Add a second ripple for a more dynamic effect */
+        #scroll:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            /* Second ripple color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease 0.2s, height 0.5s ease 0.2s, opacity 0.5s ease 0.2s;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        #scroll:hover:after {
+            width: 200%;
+            /* Size of the ripple */
+            height: 200%;
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            border: 3px solid var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        /* Firefox Scrollbar */
+        html {
+            scrollbar-color: var(--primary) var(--light);
+            scrollbar-width: thin;
+        }
+
+        /* Article Container */
+        .article {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Article Header */
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        .article-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .article-subheading {
+            font-size: 20px;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Article Content */
+        .article-content {
+            font-size: 18px;
+            color: #444;
+        }
+
+        /* Drop Cap */
+        .first-paragraph {
+            position: relative;
+        }
+
+        .drop-cap {
+            font-size: 72px;
+            font-weight: bold;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            color: #222;
+        }
+
+        /* Paragraph Spacing */
+        .article-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        blockquote {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            font-style: italic;
+            color: #555;
+        }
+
+        .references-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .references-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #2d46b9;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .references-list li:hover {
+            background-color: #e0e0e0;
+            transform: translateX(10px);
+        }
+
+        .references-list a {
+            text-decoration: none;
+            color: #2d46b9;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .references-list a:hover {
+            color: #f85f73;
+        }
+
+        .image-grid {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .appendix-link {
+            color: #2d46b9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .appendix-link:hover {
+            color: #f85f73;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            display: block;
+            margin: 0 auto;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #f85f73;
+        }
+
+
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-image {
+                width: 400px;
+            }
+
+            .about-content {
+                flex-direction: column-reverse;
+            }
+
+            .about-image {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-image {
+                opacity: 0.2;
+                width: 100%;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll" title="Scroll to Top">↑</div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Ewan Blake</a>
+            <nav class="nav-links">
+                <a href="/html/index.html#home">Home</a>
+                <a href="/html/index.html#about">About</a>
+                <a href="/html/index.html#portfolio">Work</a>
+                <a href="/html/index.html#blog">Blog</a>
+                <a href="/html/index.html#contact">Contact</a>
+            </nav>
+
+
+        </div>
+
+    </header>
+
+    <article class="article">
+        <!-- Article Header -->
+        <div class="article-header">
+            <h1 class="article-title">Waterstones Digital Business Analysis</h1>
+            <p class="article-subheading">An analytical approach to understanding Waterstones' digital transformation
+                and its impact on the retail book market.</p>
+            <p class="article-meta">By Ewan Blake · FEB 24, 2024</p>
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <!-- Introduction -->
+            <section class="article-section">
+                <h2 class="section-title">Introduction</h2>
+                <p class="first-paragraph"><span class="drop-cap">T</span>his report looks at a company that has
+                    embraced the digital side of business; Waterstones. An analytical approach to Waterstones will be
+                    conducted to lay the groundwork for an eventual case study of the business that will be performed in
+                    a later report. The purpose of the report is to collate credible information and data relating to
+                    Waterstones to aid in better understanding the structure of the business, before finally evaluating
+                    the usefulness of four analytical approaches that can determine the effectiveness of Waterstone’s
+                    business model.</p>
+                <p>By the end of this report, an understanding regarding the preferred analytical approach to take
+                    forward in the later report should be clear to the reader.</p>
+            </section>
+
+            <!-- Reasons for the selection of the digital business -->
+            <section class="article-section">
+                <h2 class="section-title">Reasons for the Selection of the Digital Business</h2>
+                <p>To understand the reasoning for the selected business, background context is needed. Waterstones
+                    began forty-two years ago, and to this day owns three hundred bookstores (Waterstones, 2019). What
+                    helps to set Waterstones apart from its direct and indirect competitors is its insistence on
+                    promoting and championing books that are not as popular as larger audience books but are still good
+                    (Waterstones, 2019). Doing this gives good insight into Waterstone's understanding of quality over
+                    quantity, curating content that could particularly connect with a specific audience of users, and
+                    finally giving attention to specific areas of users that may get overlooked by direct and indirect
+                    competitors.</p>
+                <p>It is important to consider and acknowledge Waterstone's impact on the digital retail sector. The
+                    varied platforms, both offline and online, provide a thought-out range of books and products for
+                    customers to browse through, ensuring that in a world where being digital expands the options
+                    available ten-fold, users of Waterstone get to experience a personalized selection of books that are
+                    potentially more suited for them.</p>
+                <p>There are a few reasons why Waterstone was chosen as the specific case study of this report:</p>
+            </section>
+
+            <!-- Unique features of Waterstone’s digital business model -->
+            <section class="article-section">
+                <h2 class="section-title">Unique Features of Waterstone’s Digital Business Model</h2>
+                <p>Up until 2011, Waterstone had a comfortable position in the offline market, until the abrupt arrival
+                    of Amazon and eBooks in the UK (Winterhoff, 2021). The company itself responded by allowing the use
+                    of Kindle readers to be sold in-store, drawing in customers who preferred a more digital reading
+                    experience. This worked well short term, but the realization was that in the long term, it would
+                    cause significant damage as customers would flock more so to online and digital books, rather than
+                    in-store Waterstone bookshops (Winterhoff, 2021). Initiatives were put in place to combat this
+                    threat and growing direct competitors. The company introduced public Wi-Fi into their bookshops in
+                    the hope of improving the general experience, allowing users to keep themselves occupied whilst
+                    browsing products in-store (Winterhoff, 2021). Additionally, and most significantly, the
+                    introduction of click-and-collect services bolstered the number of channels consumers could go down
+                    to obtain their bought product. Such an introduction kickstarted their digital presence, as it
+                    allowed users to order online and collect in a store of their choosing (Winterhoff, 2021).</p>
+            </section>
+
+            <!-- Market positioning and competitive advantage -->
+            <section class="article-section">
+                <h2 class="section-title">Market Positioning and Competitive Advantage</h2>
+                <p>Secondly, a SWOT analysis carried out by Zigu (n.d.) highlighted one of Waterstone’s significant
+                    strengths being “Strategic tie-ups with e-commerce companies”. By doing this, Waterstone
+                    significantly bolstered its reach and influence across the UK, reaching a much broader customer base
+                    and reaching potential customers who may have difficulty shopping physically in-store for products.
+                    Additionally, by leveraging the services of e-commerce stores, they are automatically diversifying
+                    the way customers can interact with them, and the channel options available to them. Having a more
+                    digital presence allows Waterstone to better review and analyze customer behavior, specifically with
+                    how they are shopping, and what types of products they are specifically shopping for.</p>
+            </section>
+
+            <!-- Evaluation of potential information and data sources -->
+            <section class="article-section">
+                <h2 class="section-title">Evaluation of Potential Information and Data Sources</h2>
+                <p>The way Waterstone is viewed as the last remaining physical branch in the UK means that a lot of
+                    attention is given to it, with people still admiring the way Waterstone persists despite the
+                    surrounding digital dominance and convenience of the book sector. Because of this, many data sources
+                    are available to be looked at and evaluated; articles, blogs, and official documents submitted to
+                    the UK government. Most of the online information comes from established news sources, such as The
+                    Guardian, The Standard, and the Retail Gazette. As mentioned before, Waterstone also publishes
+                    official information requested by the UK government.</p>
+                <p>Waterstone was initially bought by a Russian oligarch in the year 2011, but 7 years later was
+                    purchased as a majority stake by the Elliot Management Corporation (Kleinman, 2022). This purchase
+                    had significance, as it helped to shift the focal landscape of the company and re-emphasize
+                    Waterstone’s focused dedication to the UK market, as it had always held back when it was created in
+                    1982.</p>
+                <p>Additionally, public data shows off Waterstone’s dominant influence across the UK of acquired
+                    acquisitions, such as Blackwells and Barnes & Noble (Bartholomew, 2022). Because of such significant
+                    acquisitions, the effect it has had on their digital footprint has increased. By owning these two
+                    companies, their online market presence will automatically increase and could welcome an influx of
+                    customers who would typically browse and shop at these two respective companies. More importantly,
+                    by acquiring such acquisitions, not only does it increase their dominance over the physical market,
+                    but it also gives them a growing competitive advantage in the digital market, allowing them to
+                    compete more effectively with potential direct competitors such as Amazon and Apple Books, by
+                    improving their competitive prices, customer quality services, and potentially by embracing further
+                    elements of the digital world without having to risk their core physical presence within the UK
+                    negatively.</p>
+                <p>Finally, the owners of Waterstone are very open about their business acquisitions, and due to this,
+                    news reports often get a detailed view of the business moves they make. A news report by Kleinman
+                    (2024) detailed how the owners of Waterstone hope to make a £700 million takeover for high street
+                    giant Curry’s. It should be acknowledged that such a significant acquisition could significantly
+                    bolster Waterstone’s digital presence. A collaborative digital eco-system could be integrated, that
+                    combines Waterstone’s digital products with Curry’s digital products to create and provide a more
+                    efficient service for customers to use.</p>
+            </section>
+
+            <!-- Evaluation of the potential usefulness of four analytical approaches -->
+            <section class="article-section">
+                <h2 class="section-title">Evaluation of the Potential Usefulness of Four Analytical Approaches</h2>
+                <h3 class="subsection-title">Digital Marketplace Map</h3>
+                <p>A digital marketplace map is a key causal factor regarding a successful case study. It can be
+                    understood as an analytical understanding of a company's digital marketplace landscape, and in
+                    essence how effective it is in exploiting the benefits of a digital marketplace map. The
+                    micro-environment of a business is the focal point of this analysis. It focuses on elements such as
+                    user persona creation, understanding customers, identifying competitors, both direct and indirect,
+                    and finally acknowledging the potential intermediaries that might influence customers to visit a
+                    company website or turn them off from it (Chaffey, 2014). It should be acknowledged that this method
+                    does have a balance of pros and cons. A pro relates to insights that are typically data-driven; for
+                    example, heatmaps. By being able to detect how consumers are shopping and the general pattern the
+                    majority are taking, a company can better optimize for that specific pathway (Hueston, 2020).</p>
+                <p>Waterstones as a book chain in the UK has become one of the dominant choices for bookselling,
+                    especially brand-new products. However, a large part of their presence comes from being physically
+                    dominant, and rather not digitally dominant. In terms of the digital marketplace map, it is
+                    understood that Waterstone’s signature OVP would be their official website, official app, and any
+                    bookstores they own in the UK. A drawback of this, and as emphasized by Chaffey (2014), the digital
+                    marketplace map solely focuses on the user journey through the use of websites, and search engines.
+                    Because of this, a large portion of Waterstone’s is cut-out, IE App, physical presence. Furthermore,
+                    it can be assumed that this will not be an optimal approach as the digital marketplace map will
+                    solely cover what can be considered a minor part of Waterstone’s overall presence and ignore other
+                    elements that could prove vital to the overall analysis of the case study.</p>
+
+                <h3 class="subsection-title">Consumer Channel Structures Analysis</h3>
+                <p>The next analysis method to be covered also focuses on the micro-environment of a business. This
+                    particular approach focuses on summarizing how product distribution channels have developed over the
+                    years and specifically assesses the significance of these changes so that they can be turned into
+                    channel theory (Shaw & Dawson, 1998). However, unlike the previous method, this particular method
+                    allows for both digital, and physical journeys showing the difference, and sometimes allowing for
+                    multi-method approaches. When Waterstones embraced the digital side and introduced online ordering
+                    and click-and-collect services, it expanded the number of channels available to a consumer to use
+                    depending on their preferences. Consumers could make use of a multi-method; ordering online and
+                    going into their nearest store to pick up a new book, or they could purely go down the one route and
+                    have it ordered and delivered straight to their door.</p>
+                <p>Waterstone has several suppliers that help support book stock, and also ensure that online deliveries
+                    are carried out in a consistent and high-standard manner. Waterstone ensures the trust of all online
+                    deliveries to Royal Mail, ensuring that customers do not have to interact with Royal Mail and that
+                    all order details are managed on Waterstone’s store or app (Delivery Options | Waterstones.com Help
+                    | Waterstones, n.d.). The process of creating a consumer channel structure model for Waterstones
+                    will help to analyze how the company is run, whilst showing how their consumer channels have grown
+                    to benefit not only themselves but also the convenience of the customer.</p>
+
+                <h3 class="subsection-title">Value Analysis</h3>
+                <p>The point of value analysis is to pinpoint where the strongest elements of value are being created
+                    within a company, all with the result of ensuring customers have a satisfactory experience.</p>
+                <blockquote>
+                    Value analysis (VA) is a tool to enhance cost efficiency by evaluating the functionality of a
+                    product or a process about its cost. It helps identify and eliminate unnecessary costs incurred
+                    while making a product or conducting a business function.
+                    <footer>Venkatesh, 2021</footer>
+                </blockquote>
+                <p>Value analysis could be beneficial to attempt an evaluation of their digital platforms; website and
+                    app. By doing this, Waterstone could continue to assess areas where unnecessary costs are being
+                    directed towards, and instead direct it towards areas that could potentially improve the overall
+                    customer experience. Of the three value analysis methods; value chain, value network, and value
+                    shop, it can be argued that the value chain is the most effective and relevant when talking about
+                    Waterstones. This is because the value chain focuses on online sales, and customer engagement, two
+                    things Waterstones engages in. It is important to acknowledge however that the value shop and value
+                    network could additionally be used to analyze Waterstone's eco-system and to better understand its
+                    digital channels.</p>
+
+                <h3 class="subsection-title">SLEPT Analysis</h3>
+                <p>SLEPT analysis, standing for Social, Legal, Economic, Political, and Technological analysis, is
+                    similar to other analytical methods that study the macro environment of a business. However, it
+                    studies the risks of specific sections to see whether they have affected the business positively or
+                    negatively. Potential main factors this analytical factor would specifically focus on include;
+                    social, legal, and technological. As mentioned before, part of Waterstone’s successful physical
+                    dominance across the UK came from focusing on each store's local area. Arguably this could be the
+                    same case digitally. In terms of legal factors, this could be seen in the way they handle
+                    accessibility on their digital platforms, cookies handling, and even secure payments. Additionally,
+                    they have a rigorous process for users who want to upload a book to be sold on the digital platform.
+                </p>
+                <p>Over time since Waterstone's digital introduction, it has struggled to compete against large digital,
+                    already established platforms like Amazon, which is considered a direct competitor. However, their
+                    transition to the digital platform is not without its perks. Figure 1 shows that Waterstones has
+                    found a way to use its digitalization to keep a sense of focus on the local community, providing
+                    easy-to-find information about events tied to specific areas in the UK.</p>
+                <p>The reference of Figure 2 shows how potential independent book publishers have to proceed with
+                    getting their books published on the Waterstones digital platform. By inputting basic information
+                    about a product, they will more than likely have to adhere to copyright and intellectual property
+                    laws, in summary complying with Waterstone's publishing compliance regulations, and regulations of
+                    the UK as a whole.</p>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="article-section">
+                <h2 class="section-title">Conclusion</h2>
+                <p>In conclusion, this initial report shows that whilst Waterstones continues to embrace its digital
+                    capabilities, they still have a very strong physical presence, and therefore embrace both. Their
+                    methods of response to direct competitors such as Amazon such as click-and-collect services and
+                    partnerships and acquisitions that strengthen their presence demonstrate their ability to adapt in
+                    an ever-growing digital market.</p>
+                <p>The four analytical methods help to shed light on Waterstones' own strengths, and areas for
+                    improvement, especially considering the structure of their consumer channels and the points raised
+                    by SLEPT analysis. Overall, this brief analysis has helped to shed light on some of the complexities
+                    that arise when attempting to integrate digital technology into innately physical retail presences.
+                    But by leveraging said digital technology, this report has also helped to show how Waterstones has
+                    and will potentially continue to evolve in an ever-growing digital market.</p>
+            </section>
+
+            <!-- References Section -->
+            <section class="article-section">
+                <h2 class="section-title">References</h2>
+                <ul class="references-list">
+                    <li><a href="https://www.theguardian.com/books/2022/feb/28/waterstones-acquires-blackwells-the-uks-biggest-independent-bookseller"
+                            target="_blank">Bartholomew, J. (2022, February 28). Waterstones acquires Blackwell’s, the
+                            UK’s biggest independent bookseller. The Guardian.</a></li>
+                    <li><a href="https://www.smartinsights.com/digital-marketing-strategy/online-marketplace-analysis/"
+                            target="_blank">Chaffey, D. (2014, April 29). Online marketplace analysis for digital
+                            marketing | Smart Insights. Smart Insight.</a></li>
+                    <li><a href="https://www.waterstones.com/help/delivery-options/2114" target="_blank">Delivery
+                            Options | Waterstones.com Help | Waterstones. (n.d.). Waterstones.com.</a></li>
+                    <li><a href="https://www.mappedin.com/resources/blog/4-advantages-to-using-digital-maps-in-retail-stores/"
+                            target="_blank">Hueston, C. (2020, July 14). Mappedin.</a></li>
+                    <li><a href="https://news.sky.com/story/waterstones-in-talks-to-open-new-chapter-for-family-owned-blackwells-12532706"
+                            target="_blank">Kleinman, M. (2022, February 4). Waterstones in talks to open new chapter
+                            for family-owned Blackwell’s. Sky News.</a></li>
+                    <li><a href="https://news.sky.com/story/waterstones-owner-elliott-plots-700m-takeover-bid-for-high-street-giant-currys-13073609"
+                            target="_blank">Kleinman, M. (2024, February 17). Waterstones-owner Elliot plots £700m
+                            takeover bid for high street giant Currys. Sky News.</a></li>
+                    <li><a href="https://doi.org/10.1007/978-1-349-14089-3_4" target="_blank">Shaw, S.A., & Dawson, J.A.
+                            (1998). The Evolution of Distribution Channels for Consumer Goods. Marketing in Evolution,
+                            55-78.</a></li>
+                    <li><a href="https://www.wallstreetmojo.com/value-analysis/" target="_blank">Venkatesh, M. (2021,
+                            March 6). Value Analysis – Definition, Steps, Examples, How it Work? WallStreetMojo.</a>
+                    </li>
+                    <li><a href="https://www.waterstones.com/help/about-us/44" target="_blank">Waterstones. (2019) About
+                            Us | Waterstones.com Help | Waterstones. Waterstones.com.</a></li>
+                    <li><a href="https://startupmarketer.co/how-a-physical-bookseller-turned-the-tables-on-amazon-differentation-positioning/"
+                            target="_blank">Winterhoff, C. (2021, January 8). How Waterstones turned the tables on
+                            Amazon. A look at how Waterstones’ positioning and differentiation. StartupMarketer.co.</a>
+                    </li>
+                    <li><a href="https://www.mbaskool.com/brandguide/lifestyle-and-retail/14164-waterstones.html"
+                            target="_blank">Zigu. (n.d.). Waterstones SWOT Analysis | Top Waterstones Competitors & USP
+                            | Brand Analysis. MBA Skool-Study.Learn.Share.</a></li>
+                </ul>
+            </section>
+
+            <section class="image-grid">
+                <h2 class="section-title">Appendices</h2>
+                <div class="grid-container">
+                    <!-- Image 1 -->
+                    <div class="grid-item">
+                        <img src="/images/waterstones-appendix-1.png" alt="Appendix 1" class="grid-image"
+                            data-index="1">
+                        <p><a href="#appendix1" class="appendix-link">Appendix 1</a></p>
+                    </div>
+                    <!-- Image 2 -->
+                    <div class="grid-item">
+                        <img src="/images/waterstones-appendix-2.png" alt="Appendix 2" class="grid-image"
+                            data-index="2">
+                        <p><a href="#appendix2" class="appendix-link">Appendix 2</a></p>
+                    </div>
+
+                </div>
+
+                <!-- Pop-up Modal -->
+                <div id="image-modal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="modal-image">
+                </div>
+            </section>
+        </div>
+    </article>
+
+
+    <script>
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Form animation
+        const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('active');
+            });
+
+            input.addEventListener('blur', () => {
+                if (input.value === '') {
+                    input.parentElement.classList.remove('active');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#scroll').fadeIn();
+                } else {
+                    $('#scroll').fadeOut();
+                }
+            });
+            $('#scroll').click(function () {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("modal-image");
+            const gridImages = document.querySelectorAll(".grid-image");
+            const appendixLinks = document.querySelectorAll(".appendix-link");
+            const closeBtn = document.querySelector(".close");
+
+            // Function to open the modal with the clicked image
+            function openModal(imageSrc) {
+                modal.style.display = "block";
+                modalImg.src = imageSrc;
+            }
+
+            // Image click to open modal
+            gridImages.forEach((image) => {
+                image.addEventListener("click", () => {
+                    openModal(image.src);
+                });
+            });
+
+            // Appendix link click to open modal
+            appendixLinks.forEach((link, index) => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    openModal(gridImages[index].src);
+                });
+            });
+
+            // Close modal
+            closeBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            // Close on outside click
+            window.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
